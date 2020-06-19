@@ -88,7 +88,6 @@ $(document).ready(function() {
     $("#pizza-specs").text(pizza.toppings);
     $("#orderConfirmation").text(address.fullAddress);
     $("#order-confirmation").show();
-  pizza.clearOrder();
   });
 });
   
@@ -108,22 +107,6 @@ $(document).ready(function() {
    let deliveryState = $("#delivery-state").val();
    let deliveryZip = $("#delivery-zip").val();
    let address = new DeliveryAddress (deliveryStreetNumber, deliveryStreetName, deliveryCity, deliveryState, deliveryZip)
-   $("#delivery-address").text(address.fullAddress)
+   $("#delivery-address").text(address.fullAddress())
+   console.log(address.fullAddress())
  };
-
-
- function resetFields() {
- toppings = [];
- size = 0;
- deliveryStreetNumber = "";
- deliveryStreetName = "";
- deliveryCity = "";
- deliveryState = "";
- deliveryZip = "";
- veganCrust = false
- $("input[name=toppings]").reset();
- $("input[name=size]").reset();
- $("input[name=quantity]").reset();
- $("input[name=vegan-crust]").reset();
- $("input[name=delivery-address]").reset();
- }
