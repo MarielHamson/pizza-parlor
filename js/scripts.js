@@ -4,6 +4,7 @@ let inputToppings = []
 let inputSize;
 let inputQuantity;
 let pizza = new Pizza(inputToppings, inputSize, inputQuantity)
+let inputVeganCrust;
 
 function Pizza (toppings, size, veganCrust, quantity, totalPrice) {
 this.toppings = [];
@@ -35,6 +36,7 @@ Pizza.prototype.calculatePrice = function () {
  } else if (pizza.size === 2) {
    pizza.totalPrice = 20 * pizza.quantity
  } else {pizza.totalPrice = 25 * pizza.quantity}
+ return pizza.totalPrice
 }
 
 DeliveryAddress.prototype.fullAddress = function () {
@@ -50,7 +52,9 @@ $(document).ready(function() {
     addressInput();
     sizeInput();
     quantity();
-    $("#pizza-specs").text(pizza.calculatePrice());
+    veganCrust();
+    pizza.calculatePrice();
+    $("#pizza-specs").html("<br>" + "Your pizza costs $" + pizza.totalPrice + "." + "<br>" + "Your pizza toppings are: " + pizza.toppings + "." + "<br>" + "Your crust type is: " + pizza.veganCrust + "<br>" + "You ordered " + pizza.quantity + " pizzas");
     $("#orderConfirmation").text(address.fullAddress);
     $("#order-confirmation").show(); 
 
@@ -63,7 +67,9 @@ $(document).ready(function() {
   pizza.quantity = parseInt($("input:text[name=quantity]").val());
   }
 
-console.log(pizza)
+  function veganCrust(){
+    pizza.veganCrust = $("input:radio[name=vegan-crust]:checked").val()
+  }
  function addressInput() {
    let deliveryStreetNumber = $("#delivery-street-number").val();
    let deliveryStreetName = $("#delivery-street-name").val();
@@ -73,5 +79,7 @@ console.log(pizza)
    let address = new DeliveryAddress (deliveryStreetNumber, deliveryStreetName, deliveryCity, deliveryState, deliveryZip)
    $("#delivery-address").html(address.fullAddress())
  };
+
+ console.log(pizza)
 });
 });
