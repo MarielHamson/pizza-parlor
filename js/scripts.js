@@ -20,7 +20,10 @@ Pizza.prototype.addToppings = function (topping) {
 }
 
 Pizza.prototype.calculatePrice = function () {
-  this.totalPrice += (toppingsTotal + sizePrice + crustTypePrice)
+  let toppingsTotal = parseInt(toppings.indexOf(length-1))
+  let sizePrice;
+    if (sizeSmall === )) 
+  )this.totalPrice += (toppingsTotal + sizePrice + crustTypePrice)
 }
 
 DeliveryAddress.prototype.fullAddress = function () {
@@ -31,20 +34,31 @@ Pizza.prototype.clearOrder = function () {
   orderReceived();
 }
 
+
+}
+
+
 // UI logic
 
 $(document).ready(function() {
 function toppingsInput(){
 $("input:checkbox[name=toppings]:checked").forEach(function() {
-  toppings.push($(this).val())}
+  toppings.push($(this).val())
+}
 )};
 
-function sizeInput() {
-  let size = $("input:radio[name=size]:checked");
-}
+function sizeInput(){
+  let size = parseInt($("#sizeOptions").val());
+};
 
 function crustInput() {
   let crustType = $("input:radio[name=crust]:checked");
+}
+
+function veganCrustInput() {
+  if ($("input:radio[name=vegan]:checked")) {
+  let veganCrust = true;
+  } else let veganCrust = false;
 }
 
 function addressInput() {
@@ -58,7 +72,29 @@ function addressInput() {
 };
 
 
+function resetFields() {
+toppings = [];
+size = 0;
+crustType = 0;
+deliveryStreetNumber = "";
+deliveryStreetName = "";
+deliveryCity = "";
+deliveryState = "";
+deliveryZip = "";
+veganCrust = false
+$("#toppings").reset();
+$("#size").reset();
+$("#quantity").reset();
+$("#address").reset();
+$("#vegan-crust").reset();
+}
 
+function orderReceived() {
+  $("#order-confirmation").html("We have received your order and will delivery to: " + "<br>" + address.fullAddress)
+}
 
+$("#button > submit-order").click {
+  clearOrder();
+}
 
 });
