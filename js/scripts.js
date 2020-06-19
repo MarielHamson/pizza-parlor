@@ -30,7 +30,6 @@ let inputToppings = []
 let inputSize;
 let inputQuantity;
 let pizza = new Pizza(inputToppings, inputSize, inputQuantity)
-let address = new DeliveryAddress(deliveryStreetNumber, deliveryStreetName, deliveryCity, deliveryState, deliveryZip)
 
 function Pizza (toppings, size, veganCrust, numberOfPizzas, totalPrice) {
 this.toppings = toppings;
@@ -48,15 +47,13 @@ this.deliveryState = deliveryState;
 this.deliveryZip = deliveryZip;
 }
 
-function addToppings() {
+Pizza.prototype.addToppings = function() {
   $("input:checkbox[name=toppings]:checked").each(function(){
     inputToppings.push($(this).val());
   });
 }
 
-function quantity (){
-  inputQuantity = parseInt(("#quantity").val());
-}
+
 
 Pizza.prototype.calculatePrice = function () {
   let toppingsTotal = parseInt(toppings.indexOf(length-1))
@@ -81,48 +78,37 @@ Pizza.prototype.clearOrder = function () {
 }
 
 // UI logic
-let pizza = new Pizza();
 
 $(document).ready(function() {
   
   $("form#pizza-order").submit(function(event) {
     event.preventDefault();
-  $("input:checkbox[name=toppings]:checked").each(function(){
-      toppings.push($(this).val());
-      $("#pizza-specs").text(pizzaToppings);
-    }) 
-  
-    $("#orderConfirmation").text(newAddress.fullAddress() + "</span></td>");
-};
+    pizza.addToppings();
+    addressInput();
+    $("#pizza-specs").text(pizza.toppings);
+    $("#orderConfirmation").text(address.fullAddress);
     $("#order-confirmation").show();
-   
-  }
+  pizza.clearOrder();
+  });
 });
   
+   let size = parseInt($("#size").val());
+  let quantity = parseInt($("#quantity").val());
 
-
- function sizeInput(){
-   let size = parseInt($("#sizeOptions").val());
- };
-
- function quantityInput(){
-  let quantity = parseInt($("#howMany").val());
- };
-
- function veganCrustInput() {
-   if ($("input:radio[name=vegan]:checked")) {
-   let veganCrust = true;
-   } else let veganCrust = false;
- }
+//  function veganCrustInput() {
+//    if ($("input:radio[name=vegan-crust]:checked")) {
+//    let veganCrust = true;
+//    } else let veganCrust = false;
+//  }
 
  function addressInput() {
-   let deliveryStreetNumber = $("#delivery-street-number".val());
-   let deliveryStreetName = $("#delivery-street".val());
-   let deliveryCity = $("#delivery-city".val());
-   let deliveryState = $("#delivery-state".val());
-   let deliveryZip = $("#delivery-zip".val());
+   let deliveryStreetNumber = $("#delivery-street-number").val();
+   let deliveryStreetName = $("#delivery-street-name").val();
+   let deliveryCity = $("#delivery-city").val();
+   let deliveryState = $("#delivery-state").val();
+   let deliveryZip = $("#delivery-zip").val();
    let address = new DeliveryAddress (deliveryStreetNumber, deliveryStreetName, deliveryCity, deliveryState, deliveryZip)
-   $("#address-confirmation".text(address.fullAddress))
+   $("#delivery-address").text(address.fullAddress)
  };
 
 
@@ -135,22 +121,9 @@ $(document).ready(function() {
  deliveryState = "";
  deliveryZip = "";
  veganCrust = false
- $("#toppings").reset();
- $("#size").reset();
- $("#quantity").reset();
- $("#address").reset();
- $("#vegan-crust").reset();
+ $("input[name=toppings]").reset();
+ $("input[name=size]").reset();
+ $("input[name=quantity]").reset();
+ $("input[name=vegan-crust]").reset();
+ $("input[name=delivery-address]").reset();
  }
-
- function orderReceived() {
-   $("#order-confirmation").html("We have received your order and will delivery to: " + "<br>" + address.fullAddress)
- }
-
-   pizza.addToppings
-   toppingsInput();
-   quantityInput();
-   sizeInput();
-   veganCrustInput();
-   addressInput();
-  
-   pizza.clearOrder()
