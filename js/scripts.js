@@ -1,9 +1,8 @@
 // business logic 
 
-function Pizza (toppings, size, crustType, veganCrust, numberOfPizzas, totalPrice)
+function Pizza (toppings, size, veganCrust, numberOfPizzas, totalPrice)
 this.toppings = [];
 this.size = size;
-this.crustType = crustType;
 this.veganCrust = veganCrust;
 this.numberOfPizzas = numberOfPizzas;
 this.totalPrice = totalPrice
@@ -22,8 +21,15 @@ Pizza.prototype.addToppings = function (topping) {
 Pizza.prototype.calculatePrice = function () {
   let toppingsTotal = parseInt(toppings.indexOf(length-1))
   let sizePrice;
-    if (sizeSmall === )) 
-  )this.totalPrice += (toppingsTotal + sizePrice + crustTypePrice)
+    if (size === 1) {
+      sizePrice = 10
+    } else if (size === 2) {
+      sizePrice = 15
+    } else if (size === 3) {
+      sizePrice = 20
+    } 
+    else {sizePrice = 0}
+  this.totalPrice += (toppingsTotal + sizePrice) * numberOfPizzas
 }
 
 DeliveryAddress.prototype.fullAddress = function () {
@@ -34,10 +40,7 @@ Pizza.prototype.clearOrder = function () {
   orderReceived();
 }
 
-
-}
-
-
+let pizza = new Pizza(toppings, size, veganCrust, numberOfPizzas, totalPrice)
 // UI logic
 
 $(document).ready(function() {
@@ -51,9 +54,9 @@ function sizeInput(){
   let size = parseInt($("#sizeOptions").val());
 };
 
-function crustInput() {
-  let crustType = $("input:radio[name=crust]:checked");
-}
+function quantityInput(){
+  let quantity = parseInt($("#howMany").val());
+};
 
 function veganCrustInput() {
   if ($("input:radio[name=vegan]:checked")) {
@@ -75,7 +78,6 @@ function addressInput() {
 function resetFields() {
 toppings = [];
 size = 0;
-crustType = 0;
 deliveryStreetNumber = "";
 deliveryStreetName = "";
 deliveryCity = "";
@@ -93,8 +95,15 @@ function orderReceived() {
   $("#order-confirmation").html("We have received your order and will delivery to: " + "<br>" + address.fullAddress)
 }
 
-$("#button > submit-order").click {
-  clearOrder();
-}
+$("#button > submit-order").submit(function(event) {
+  event.preventDefault();
+  toppingsInput();
+  quantityInput();
+  sizeInput();
+  veganCrustInput();
+  addressInput();
+  pizza.clearOrder()
+  
+});
 
 });
