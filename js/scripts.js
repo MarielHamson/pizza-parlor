@@ -1,7 +1,6 @@
 let inputToppings = []
 let inputSize;
 let inputQuantity;
-let pizza = new Pizza(inputToppings, inputSize, inputQuantity)
 let inputVeganCrust;
 
 function Pizza(toppings, size, veganCrust, quantity, totalPrice) {
@@ -20,7 +19,7 @@ function DeliveryAddress(deliveryStreetNumber, deliveryStreetName, deliveryCity,
   this.deliveryZip = deliveryZip;
 }
 
-Pizza.prototype.addToppings = function() {
+Pizza.prototype.addToppings = function(pizza) {
   $("input:checkbox[name=toppings]:checked").each(function() {
     pizza.toppings.push($(this).val());
   });
@@ -28,7 +27,7 @@ Pizza.prototype.addToppings = function() {
 
 
 
-Pizza.prototype.calculatePrice = function() {
+Pizza.prototype.calculatePrice = function(pizza) {
   if (pizza.size === 1) {
     pizza.totalPrice = 15 * pizza.quantity
   } else if (pizza.size === 2) {
@@ -46,25 +45,28 @@ DeliveryAddress.prototype.fullAddress = function() {
 // UI logic
 
 $(document).ready(function() {
-
+  let inputToppings = []
+  let inputSize;
+  let inputQuantity;
+  let pizza = new Pizza(inputToppings, inputSize, inputQuantity)
   $("form#pizza-order").submit(function(event) {
     event.preventDefault();
-    pizza.addToppings();
+    pizza.addToppings(pizza);
     addressInput();
-    sizeInput();
-    quantity();
+    sizeInput(pizza);
+    quantity(pizza);
     veganCrust();
-    pizza.calculatePrice();
+    pizza.calculatePrice(pizza);
     $("#pizza-specs").html("<br>" + "Your pizza costs $" + pizza.totalPrice + "." + "<br>" + "Your pizza toppings are: " + pizza.toppings + "." + "<br>" + "Your crust type is: " + pizza.veganCrust + "<br>" + "You ordered " + pizza.quantity + " pizzas");
     $("#orderConfirmation").text(address.fullAddress);
     $("#order-confirmation").show();
 
 
-    function sizeInput() {
+    function sizeInput(pizza) {
       pizza.size = parseInt($("input:radio[name=size]:checked").val());
     }
 
-    function quantity() {
+    function quantity(pizza) {
       pizza.quantity = parseInt($("input:text[name=quantity]").val());
     }
 
