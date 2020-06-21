@@ -151,3 +151,11 @@ h1, h2, h3, h4, h5, h6 {
 #size, #toppings, #vegan-crust, #quantity, #address {
   padding-bottom: 2%;
 }
+
+#animation {
+  -webkit-animation: 2s linear 0s infinite reverse slide;
+  animation: 2s linear 0s infinite reverse slide;
+}
+
+@-webkit-keyframes slide {from { margin-left: 70% } to {margin-right: 80%; } }
+  @keyframes slide {from { margin-left: 80%; } to { margin-right: 70%; }  }
