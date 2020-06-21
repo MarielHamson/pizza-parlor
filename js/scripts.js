@@ -19,14 +19,6 @@ function DeliveryAddress(deliveryStreetNumber, deliveryStreetName, deliveryCity,
   this.deliveryZip = deliveryZip;
 }
 
-Pizza.prototype.addToppings = function(pizza) {
-  $("input:checkbox[name=toppings]:checked").each(function() {
-    pizza.toppings.push($(this).val());
-  });
-}
-
-
-
 Pizza.prototype.calculatePrice = function(pizza) {
   if (pizza.size === 1) {
     pizza.totalPrice = 15 * pizza.quantity
@@ -51,7 +43,7 @@ $(document).ready(function() {
   let pizza = new Pizza(inputToppings, inputSize, inputQuantity)
   $("form#pizza-order").submit(function(event) {
     event.preventDefault();
-    pizza.addToppings(pizza);
+    getToppings(pizza);
     addressInput();
     sizeInput(pizza);
     quantity(pizza);
@@ -72,6 +64,12 @@ $(document).ready(function() {
 
     function veganCrust() {
       pizza.veganCrust = $("input:radio[name=vegan-crust]:checked").val()
+    }
+
+    function getToppings(pizza) {
+      $("input:checkbox[name=toppings]:checked").each(function() {
+        pizza.toppings.push($(this).val());
+    });
     }
 
     function addressInput() {
