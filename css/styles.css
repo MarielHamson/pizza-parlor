@@ -2,7 +2,7 @@
 body {
   font-family: "Poppins", sans-serif;
   color: white;
-  background: url("/img/background-reversed.jpg");
+  background-image: url("background-reversed.jpg");
   background-size: cover;
 }
 
@@ -146,4 +146,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .modal-footer {
   background-color: grey;
+}
+
+#size, #toppings, #vegan-crust, #quantity, #address {
+  padding-bottom: 2%;
 }
