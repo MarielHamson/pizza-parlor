@@ -2,7 +2,7 @@
 body {
   font-family: "Poppins", sans-serif;
   color: white;
-  background-image: url("https://github.com/MarielHamson/pizza-parlor/blob/master/img/background-reversed.jpg");
+  background-image: url("img/background-reversed.jpg")
   background-size: cover;
 }
 
