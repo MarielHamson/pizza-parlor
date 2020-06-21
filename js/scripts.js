@@ -1,9 +1,3 @@
-let inputToppings = []
-let inputSize;
-let inputQuantity;
-let pizza = new Pizza(inputToppings, inputSize, inputQuantity)
-let inputVeganCrust;
-
 function Pizza(toppings, size, veganCrust, quantity, totalPrice) {
   this.toppings = [];
   this.size = size;
@@ -20,22 +14,14 @@ function DeliveryAddress(deliveryStreetNumber, deliveryStreetName, deliveryCity,
   this.deliveryZip = deliveryZip;
 }
 
-Pizza.prototype.addToppings = function() {
-  $("input:checkbox[name=toppings]:checked").each(function() {
-    pizza.toppings.push($(this).val());
-  });
-}
-
-
-
-Pizza.prototype.calculatePrice = function() {
+Pizza.prototype.calculatePrice = function(pizza) {
   if (pizza.size === 1) {
     pizza.totalPrice = 15 * pizza.quantity
   } else if (pizza.size === 2) {
     pizza.totalPrice = 20 * pizza.quantity
-  } else {
+  } else if (pizza.size === 3){
     pizza.totalPrice = 25 * pizza.quantity
-  }
+  } 
   return pizza.totalPrice
 }
 
@@ -46,30 +32,40 @@ DeliveryAddress.prototype.fullAddress = function() {
 // UI logic
 
 $(document).ready(function() {
-
+  let inputToppings = []
+  let inputSize;
+  let inputQuantity;
+  let veganCrust;
+  let totalPrice;
+  let pizza = new Pizza(inputToppings, inputSize, veganCrust, inputQuantity, totalPrice)
   $("form#pizza-order").submit(function(event) {
     event.preventDefault();
-    pizza.addToppings();
+    getToppings(pizza);
     addressInput();
-    sizeInput();
-    quantity();
-    veganCrust();
-    pizza.calculatePrice();
-    $("#pizza-specs").html("<br>" + "Your pizza costs $" + pizza.totalPrice + "." + "<br>" + "Your pizza toppings are: " + pizza.toppings + "." + "<br>" + "Your crust type is: " + pizza.veganCrust + "<br>" + "You ordered " + pizza.quantity + " pizzas");
+    sizeInput(pizza);
+    quantity(pizza);
+    veganCrust(pizza);
+    pizza.calculatePrice(pizza);
+    $("#pizza-specs").html("<br>" + "Your pizza order total is $" + pizza.totalPrice + "." + "<br>" + "Your pizza toppings are: " + pizza.toppings + "." + "<br>" + "Your crust type is: " + pizza.veganCrust + "<br>" + "You ordered " + pizza.quantity + " pizzas");
     $("#orderConfirmation").text(address.fullAddress);
     $("#order-confirmation").show();
 
-
-    function sizeInput() {
+    function sizeInput(pizza) {
       pizza.size = parseInt($("input:radio[name=size]:checked").val());
     }
 
-    function quantity() {
+    function quantity(pizza) {
       pizza.quantity = parseInt($("input:text[name=quantity]").val());
     }
 
-    function veganCrust() {
+    function veganCrust(pizza) {
       pizza.veganCrust = $("input:radio[name=vegan-crust]:checked").val()
+    }
+
+    function getToppings(pizza) {
+      $("input:checkbox[name=toppings]:checked").each(function() {
+        pizza.toppings.push($(this).val());
+      });
     }
 
     function addressInput() {
@@ -81,7 +77,5 @@ $(document).ready(function() {
       let address = new DeliveryAddress(deliveryStreetNumber, deliveryStreetName, deliveryCity, deliveryState, deliveryZip)
       $("#delivery-address").html(address.fullAddress())
     };
-
-    console.log(pizza)
   });
 });
