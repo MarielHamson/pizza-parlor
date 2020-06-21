@@ -19,9 +19,9 @@ Pizza.prototype.calculatePrice = function(pizza) {
     pizza.totalPrice = 15 * pizza.quantity
   } else if (pizza.size === 2) {
     pizza.totalPrice = 20 * pizza.quantity
-  } else {
+  } else if (pizza.size === 3){
     pizza.totalPrice = 25 * pizza.quantity
-  }
+  } 
   return pizza.totalPrice
 }
 
@@ -44,9 +44,9 @@ $(document).ready(function() {
     addressInput();
     sizeInput(pizza);
     quantity(pizza);
-    veganCrust();
+    veganCrust(pizza);
     pizza.calculatePrice(pizza);
-    $("#pizza-specs").html("<br>" + "Your pizza costs $" + pizza.totalPrice + "." + "<br>" + "Your pizza toppings are: " + pizza.toppings + "." + "<br>" + "Your crust type is: " + pizza.veganCrust + "<br>" + "You ordered " + pizza.quantity + " pizzas");
+    $("#pizza-specs").html("<br>" + "Your pizza order total is $" + pizza.totalPrice + "." + "<br>" + "Your pizza toppings are: " + pizza.toppings + "." + "<br>" + "Your crust type is: " + pizza.veganCrust + "<br>" + "You ordered " + pizza.quantity + " pizzas");
     $("#orderConfirmation").text(address.fullAddress);
     $("#order-confirmation").show();
 
@@ -58,7 +58,7 @@ $(document).ready(function() {
       pizza.quantity = parseInt($("input:text[name=quantity]").val());
     }
 
-    function veganCrust() {
+    function veganCrust(pizza) {
       pizza.veganCrust = $("input:radio[name=vegan-crust]:checked").val()
     }
 

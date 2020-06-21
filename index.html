@@ -9,6 +9,7 @@
   <title> Pizza Parlor </title>
   <link href="css/bootstrap.css" rel="stylesheet" />
   <link href="css/styles.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
   <script src="js/jquery-3.5.1.js" type="text/javascript"></script>
   <script src="js/scripts.js" type="text/javascript"></script>
   <script src="js/bootstrap.js" type="text/javascript"></script>
@@ -16,12 +17,33 @@
 
 <body>
   <div class="container">
-    <h1 class="pizza-header"> Pizza Ordering System</h1>
-    <div class="jumbotron">
-      Order an amazing pizza today for delivery!
-    </div>
+    <header id="header" class=" d-flex align-items-center header-transparent">
+      <div class="container d-flex align-items-center">
+        <div class="logo mr-auto">
+          <h1 class="text-light"><a href="index.html"><span></span></a></h1>
+        </div>
+  
+        <nav class="nav-menu d-none d-lg-block">
+          <ul>
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#specials">Specials</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#chefs">Chefs</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+  
+            <li class="book-a-table text-center"><a href="#book-a-table">Book a table</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <h1 class="pizza-header"> Marzetti Pizza Co.</h1>
+    <br><br><br><br>
     <form id="pizza-order">
-      <div id="toppings">
+      <div id ="toppings">
         <p> Which toppings would you like?</p>
         <div class="checkbox">
           <label>
@@ -107,17 +129,26 @@
           <input id="delivery-zip" class=form-control type="text" name="delivery-address">
         </div>
       </div>
-
       <div class="form-group">
-        <button type="submit" class="btn btn-success btn-fill">Submit</button>
-      </div>
-    </form>
-    <div id="order-confirmation">
-      <h4>Thank you for your order</h4>
-      <p> Your pizza is on its way to: <span id="delivery-address"></span> <br> Your pizza details: <span id="pizza-specs"></span></p>
+        <button type="submit" class="btn btn-success btn-fill" data-toggle="modal" data-target="#myModal">Submit Order</button>
+    </div>
+</form>
+<div id="myModal" class="modal fade" role="dialog">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Your order is on its way!</h4>
+        </div>
+        <div class="modal-body">
+            <p> <span id="order-confirmation"></span> Thank you for your order. <br><br> Your pizza will be delivered to: <span id="delivery-address"> </span> <br><br>Your pizza details: <br><span id="pizza-specs"></span></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
     </div>
 
-
+</div>
+</div>
   </div>
 </body>
 
