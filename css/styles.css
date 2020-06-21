@@ -2,7 +2,7 @@
 body {
   font-family: "Poppins", sans-serif;
   color: white;
-  background-image: url("/img/background-reversed.jpg");
+  background-image: url("background-reversed.jpg");
   background-size: cover;
 }
 
